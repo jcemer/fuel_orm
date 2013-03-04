@@ -83,13 +83,16 @@ abstract class Relation
 	 * @param   string
 	 * @return  array
 	 */
-	public function select($table)
+	public function select($table, $columns = array())
 	{
 		$props = call_user_func(array($this->model_to, 'properties'));
 		$i = 0;
 		$properties = array();
 		foreach ($props as $pk => $pv)
 		{
+			if (!empty($columns) && !in_array($pk, $columns)) {
+				continue;
+			}	
 			$properties[] = array($table.'.'.$pk, $table.'_c'.$i);
 			$i++;
 		}

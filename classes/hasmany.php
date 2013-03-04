@@ -72,6 +72,7 @@ class HasMany extends Relation
 
 	public function join($alias_from, $rel_name, $alias_to_nr, $conditions = array())
 	{
+
 		$alias_to = 't'.$alias_to_nr;
 		$model = array(
 			'model'        => $this->model_to,
@@ -80,7 +81,7 @@ class HasMany extends Relation
 			'primary_key'  => call_user_func(array($this->model_to, 'primary_key')),
 			'join_type'    => \Arr::get($conditions, 'join_type') ?: \Arr::get($this->conditions, 'join_type', 'left'),
 			'join_on'      => array(),
-			'columns'      => $this->select($alias_to),
+			'columns'      => $this->select($alias_to, !empty($conditions['select']) ? $conditions['select'] : array()),
 			'rel_name'     => strpos($rel_name, '.') ? substr($rel_name, strrpos($rel_name, '.') + 1) : $rel_name,
 			'relation'     => $this,
 			'where'        => \Arr::get($conditions, 'where', array()),
