@@ -74,7 +74,7 @@ class BelongsTo extends Relation
 			'primary_key'  => call_user_func(array($this->model_to, 'primary_key')),
 			'join_type'    => \Arr::get($conditions, 'join_type') ?: \Arr::get($this->conditions, 'join_type', 'left'),
 			'join_on'      => array(),
-			'columns'      => $this->select($alias_to),
+			'columns'      => $this->select($alias_to, !empty($conditions['select']) ? $conditions['select'] : array()),
 			'rel_name'     => strpos($rel_name, '.') ? substr($rel_name, strrpos($rel_name, '.') + 1) : $rel_name,
 			'relation'     => $this,
 			'where'        => \Arr::get($conditions, 'where', array()),
